@@ -1,0 +1,22 @@
+# Build outputs
+bin/
+obj/
+
+# Ignore Visual Studio temporary folders
+.vs/
+.vs/**
+.vs/**/CopilotIndices/
+.vs/**/CopilotIndices/**
+.vs/**/FileContentIndex/
+.vs/**/FileContentIndex/**
+
+# Visual Studio
+*.user
+*.suo
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
