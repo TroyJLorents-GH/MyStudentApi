@@ -12,7 +12,6 @@ namespace MyStudentApi.Data
         }
 
         // This DbSet will allow you to query and save instances of Student.
-        public DbSet<Student> Students { get; set; }
         public DbSet<ClassLookup> ClassLookups { get; set; }
         public DbSet<ClassSchedule2254> ClassSchedule2254 { get; set; }
         public DbSet<StudentClassAssignment> StudentClassAssignments { get; set; }

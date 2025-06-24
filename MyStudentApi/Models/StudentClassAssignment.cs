@@ -40,6 +40,8 @@ namespace MyStudentApi.Models
         public bool? SSN_Sent { get; set; }
         public bool? Offer_Sent { get; set; }
         public bool? Offer_Signed { get; set; }
+        public double? cur_gpa { get; set; }
+        public double? cum_gpa { get; set; }
 
     }
 }

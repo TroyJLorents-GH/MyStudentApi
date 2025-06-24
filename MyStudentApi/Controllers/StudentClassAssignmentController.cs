@@ -105,15 +105,30 @@ namespace MyStudentApi.Controllers
 
                 foreach (var record in records)
                 {
-                    // Ensure calculated fields are set
                     record.CreatedAt = now;
                     record.Term = "2254";
-                    record.Location = "TEMPE";
-                    record.Campus = "TEMPE";
-                    record.AcadCareer = "UGRD";
 
                     record.Compensation = AssignmentUtils.CalculateCompensation(record);
                     record.CostCenterKey = AssignmentUtils.ComputeCostCenterKey(record);
+
+                    // GPA logic for bulk upload
+                    if (record.FultonFellow?.ToLower() == "yes")
+                    {
+                        var student = await _context.StudentLookups
+                            .FirstOrDefaultAsync(s => s.Student_ID == record.Student_ID);
+
+                        if (student != null)
+                        {
+                            record.cur_gpa = student.Current_GPA;
+                            record.cum_gpa = student.Cumulative_GPA;
+                        }
+                        else
+                        {
+                            // Optional: if there is no GPA info then puts 0
+                            record.cur_gpa = '0';
+                            record.cum_gpa = '0';
+                        }
+                    }
 
                     assignments.Add(record);
                 }
