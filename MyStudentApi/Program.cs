@@ -3,15 +3,15 @@ using MyStudentApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//  services to the container.
 builder.Services.AddControllers();
 
-// Add CORS policy to allow requests from the React app.
+// Add CORS policy to requests from the React
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins("http://localhost:3000", "https://icy-moss-0ce7c881e.2.azurestaticapps.net")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -41,4 +41,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
