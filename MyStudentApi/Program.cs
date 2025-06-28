@@ -11,7 +11,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "https://icy-moss-0ce7c881e.2.azurestaticapps.net")
+        policy.WithOrigins(
+            "http://localhost:3000",
+            "https://icy-moss-0ce7c881e.2.azurestaticapps.net"
+            )
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
