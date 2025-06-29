@@ -6,6 +6,7 @@
 
 [https://api.troystaticsite.com/swagger/index.html](https://studenthiringsystem-ccf5djgdg9dpb6ek.westus-01.azurewebsites.net/swagger/index.html)
 
+- Live Site: https://www.troystaticsite.com/
 ---
 
 ## About Me
