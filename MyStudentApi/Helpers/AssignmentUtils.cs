@@ -9,17 +9,48 @@ namespace MyStudentApi.Helpers
             int h = a.WeeklyHours;
             if (a.Position == "TA")
             {
+                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 2200;
+                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 2800;
                 if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 6636;
                 if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 7250;
+                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 8500;
+                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 8950;
                 if (h == 20 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 13272;
                 if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 14500;
+                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 13272;
                 if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 13461.24;
+                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 2500;
+                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 3200;
+                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 6836;
+                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 7550;
+                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 9000;
+                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 9550;
             }
 
             if (a.Position == "TA (GSA) 1 credit")
             {
                 if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 7552.5;
                 if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 16825;
+            }
+
+            if (a.Position == "Grader")
+            {
+                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 2200;
+                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 2800;
+                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 6636;
+                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 7250;
+                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 8500;
+                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 8950;
+                if (h == 20 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 13272;
+                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 14500;
+                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 13272;
+                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 13461.24;
+                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 2500;
+                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 3200;
+                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 6836;
+                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 7550;
+                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 9000;
+                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 9550;
             }
 
             if (a.Position == "IA")
@@ -56,11 +87,11 @@ namespace MyStudentApi.Helpers
             new("TA (GSA) 1 credit", "ASUONLINE", "TEMPE", "UGRD", "CC0136/PG01943"),
             new("TA (GSA) 1 credit", "ASUONLINE", "TEMPE", "GRAD", "CC0136/PG06316"),
             new("TA (GSA) 1 credit", "ASUONLINE", "POLY",  "UGRD", "CC0136/PG02003"),
-            new("TA (GSA) 1 credit", "ASUONLINE", "POLY",  "GRAD", "------"),
+            new("TA (GSA) 1 credit", "ASUONLINE", "POLY",  "GRAD", "CC0137/PG01943"),
             new("TA (GSA) 1 credit", "ICOURSE",   "TEMPE", "UGRD", "CC0136/PG01943"),
             new("TA (GSA) 1 credit", "ICOURSE",   "TEMPE", "GRAD", "CC0136/PG06316"),
             new("TA (GSA) 1 credit", "ICOURSE",   "POLY",  "UGRD", "CC0136/PG02003"),
-            new("TA (GSA) 1 credit", "ICOURSE",   "POLY",  "GRAD", "------"),
+            new("TA (GSA) 1 credit", "ICOURSE",   "POLY",  "GRAD", "CC0137/PG01943"),
 
             // === IA ===
             new("IA", "TEMPE",     "TEMPE", "UGRD", "CC0136/PG15818"),
@@ -84,11 +115,11 @@ namespace MyStudentApi.Helpers
             new("Grader", "ASUONLINE", "TEMPE", "UGRD", "CC0136/PG01943"),
             new("Grader", "ASUONLINE", "TEMPE", "GRAD", "CC0136/PG06316"),
             new("Grader", "ASUONLINE", "POLY",  "UGRD", "CC0136/PG02003"),
-            new("Grader", "ASUONLINE", "POLY",  "GRAD", "------"),
+            new("Grader", "ASUONLINE", "POLY",  "GRAD", "CC0137/PG01943"),
             new("Grader", "ICOURSE",   "TEMPE", "UGRD", "CC0136/PG01943"),
             new("Grader", "ICOURSE",   "TEMPE", "GRAD", "CC0136/PG06316"),
             new("Grader", "ICOURSE",   "POLY",  "UGRD", "CC0136/PG02003"),
-            new("Grader", "ICOURSE",   "POLY",  "GRAD", "------"),
+            new("Grader", "ICOURSE",   "POLY",  "GRAD", "CC0137/PG01943"),
 
             // === TA ===
             new("TA", "TEMPE",     "TEMPE", "UGRD", "CC0136/PG02202"),
@@ -98,11 +129,11 @@ namespace MyStudentApi.Helpers
             new("TA", "ASUONLINE", "TEMPE", "UGRD", "CC0136/PG01943"),
             new("TA", "ASUONLINE", "TEMPE", "GRAD", "CC0136/PG06316"),
             new("TA", "ASUONLINE", "POLY",  "UGRD", "CC0136/PG02003"),
-            new("TA", "ASUONLINE", "POLY",  "GRAD", "------"),
-            new("TA", "ICOURSE",   "TEMPE", "UGRD", "CC0136/PG01943"),
+            new("TA", "ASUONLINE", "POLY",  "GRAD", "CC0136/PG02003"),
+            new("TA", "ICOURSE",   "TEMPE", "UGRD", "CC0137/PG01943"),
             new("TA", "ICOURSE",   "TEMPE", "GRAD", "CC0136/PG06316"),
             new("TA", "ICOURSE",   "POLY",  "UGRD", "CC0136/PG02003"),
-            new("TA", "ICOURSE",   "POLY",  "GRAD", "------")
+            new("TA", "ICOURSE",   "POLY",  "GRAD", "CC0137/PG01943")
         };
     }
 }
