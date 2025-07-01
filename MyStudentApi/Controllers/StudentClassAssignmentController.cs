@@ -140,5 +140,61 @@ namespace MyStudentApi.Controllers
             return Ok(new { message = $"{assignments.Count} records uploaded successfully." });
         }
 
+         [HttpGet("template")]
+         public IActionResult DownloadTemplate()
+            {
+              var headers = new[]
+                {
+                    "Position",
+                    "FultonFellow",
+                    "WeeklyHours",
+                    "Student_ID",
+                    "First_Name",
+                    "Last_Name",
+                    "Email",
+                    "EducationLevel",
+                    "Subject",
+                    "CatalogNum",
+                    "InstructorFirstName",
+                    "InstructorLastName",
+                    "ClassSession",
+                    "ClassNum",
+                    "Term",
+                    "Location",
+                    "Campus",
+                    "AcadCareer"
+                };
+
+                // Build CSV content
+                var csv = new StringBuilder();
+                csv.AppendLine(string.Join(",", headers));
+
+                // Add an example row for guidance
+                var exampleRow = string.Join(",", new[]
+                {
+                    "IA/TA/Grader",
+                    "Yes/No",
+                    "5/10/15/20",
+                    "10 digit Id",
+                    "Name",
+                    "Last Name",
+                    "email@xxx.edu",
+                    "MS/PHD",
+                    "CSE/CIS/IEE",
+                    "100-700",
+                    "First Name",
+                    "Last Name",
+                    "A/B/C",
+                    "12345",
+                    "2254",
+                    "TEMPE",
+                    "TEMPE",
+                    "UGRD/GRAD"
+                });
+                csv.AppendLine(exampleRow);
+
+                var bytes = Encoding.UTF8.GetBytes(csv.ToString());
+                return File(bytes, "text/csv", "BulkUploadTemplate.csv");
+         }
     }
 }
