@@ -108,8 +108,10 @@ namespace MyStudentApi.Controllers
                     record.CreatedAt = now;
                     record.Term = "2254";
 
-                    record.Compensation = AssignmentUtils.CalculateCompensation(record);
+                    record.AcadCareer = AssignmentUtils.InferAcadCareer(record);
                     record.CostCenterKey = AssignmentUtils.ComputeCostCenterKey(record);
+                    record.Compensation = AssignmentUtils.CalculateCompensation(record);
+
 
                     // GPA logic for bulk upload
                     if (record.FultonFellow?.ToLower() == "yes")
@@ -161,8 +163,7 @@ namespace MyStudentApi.Controllers
                     "ClassNum",
                     "Term",
                     "Location",
-                    "Campus",
-                    "AcadCareer"
+                    "Campus"
                 };
 
                 // Build CSV content
@@ -188,8 +189,7 @@ namespace MyStudentApi.Controllers
                     "12345",
                     "2254",
                     "TEMPE",
-                    "TEMPE",
-                    "UGRD/GRAD"
+                    "TEMPE"
                 });
                 csv.AppendLine(exampleRow);
 
