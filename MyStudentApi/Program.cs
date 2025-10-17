@@ -4,7 +4,11 @@ using MyStudentApi.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 //  services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(o =>
+    {
+        o.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 // Add CORS policy to requests from the React
 builder.Services.AddCors(options =>

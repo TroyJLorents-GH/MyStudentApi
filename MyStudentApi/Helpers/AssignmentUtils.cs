@@ -6,7 +6,7 @@ namespace MyStudentApi.Helpers
     {
         public static double CalculateCompensation(StudentClassAssignment a)
         {
-            int h = a.WeeklyHours;
+            int h = a.WeeklyHours ?? 0;
             if (a.Position == "TA")
             {
                 if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 2200;
