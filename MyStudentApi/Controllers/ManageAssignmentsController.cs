@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyStudentApi.Data;
 using MyStudentApi.Models;
+using MyStudentApi.Helpers;
 
 namespace MyStudentApi.Controllers
 {
@@ -29,13 +30,14 @@ namespace MyStudentApi.Controllers
         }
 
         // ========= GET /api/manage-assignments/by-instructor/{instructor_id} =========
-        // Your DB model doesn’t have InstructorID, so we can’t filter yet.
-        // This returns all rows for now (so your React page still works).
-        // TODO: When you add an instructor key/column, filter by it here.
         [HttpGet("by-instructor/{instructorId:int}")]
         public async Task<IActionResult> GetByInstructor(int instructorId)
         {
-            var list = await _db.StudentClassAssignments.ToListAsync();
+            // Only include assignments where Instructor_Edit is not 'Y' or 'D' (or is null/None)
+            var list = await _db.StudentClassAssignments
+                .Where(a => a.InstructorID == instructorId &&
+                           (a.Instructor_Edit == null || (a.Instructor_Edit != "Y" && a.Instructor_Edit != "D")))
+                .ToListAsync();
 
             var result = list.Select(a => new
             {
@@ -97,25 +99,25 @@ namespace MyStudentApi.Controllers
             ApplyRef(nameof(update.ClassNum), update.ClassNum, v => a.ClassNum = v);
             ApplyRef(nameof(update.FultonFellow), update.FultonFellow, v => a.FultonFellow = v);
 
-            // If CatalogNum changed, infer AcadCareer (basic example; replace with your real rule)
+            // If CatalogNum changed, infer AcadCareer
             if (changed.Contains(nameof(update.CatalogNum)))
             {
-                a.AcadCareer = InferAcadCareer(a.CatalogNum);
+                a.AcadCareer = AssignmentUtils.InferAcadCareer(a);
                 changed.Add(nameof(a.AcadCareer));
             }
 
-            // Recompute Compensation if relevant fields changed (replace logic with your real one)
+            // Recompute Compensation if relevant fields changed
             var compensationFields = new[] { "Position", "WeeklyHours", "EducationLevel", "FultonFellow", "ClassSession" };
             if (compensationFields.Any(changed.Contains))
             {
-                a.Compensation = CalculateCompensation(a.WeeklyHours, a.Position, a.EducationLevel, a.FultonFellow, a.ClassSession);
+                a.Compensation = AssignmentUtils.CalculateCompensation(a);
             }
 
             // Recompute CostCenterKey if relevant fields changed (or AcadCareer changed)
             var costCenterFields = new[] { "Position", "Location", "Campus", "AcadCareer" };
             if (costCenterFields.Any(changed.Contains))
             {
-                a.CostCenterKey = ComputeCostCenterKey(a.Position, a.Location, a.Campus, a.AcadCareer);
+                a.CostCenterKey = AssignmentUtils.ComputeCostCenterKey(a);
             }
 
             await _db.SaveChangesAsync();
@@ -139,27 +141,6 @@ namespace MyStudentApi.Controllers
             };
 
             return Ok(response);
-        }
-
-        // ===== Helpers (replace with your exact rules) =====
-        private static string? InferAcadCareer(int? catalogNum)
-        {
-            if (catalogNum is null) return null;
-            return catalogNum < 500 ? "UGRD" : "GRAD";
-        }
-
-        private static double CalculateCompensation(int? weeklyHours, string? position, string? educationLevel, string? fultonFellow, string? classSession)
-        {
-            if (weeklyHours is null) return 0;
-            var hourly = 22.0;                // your noted hourly rate
-            var periods = (classSession == "C") ? 6 : 3;
-            return hourly * (weeklyHours.Value * 2) * periods;
-        }
-
-        private static string? ComputeCostCenterKey(string? position, string? location, string? campus, string? acadCareer)
-        {
-            if (string.IsNullOrWhiteSpace(position)) return null;
-            return $"{campus}-{location}-{acadCareer}-{position}";
         }
     }
 }

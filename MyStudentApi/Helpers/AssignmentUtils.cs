@@ -7,57 +7,76 @@ namespace MyStudentApi.Helpers
         public static double CalculateCompensation(StudentClassAssignment a)
         {
             int h = a.WeeklyHours ?? 0;
-            if (a.Position == "TA")
+            string position = (a.Position ?? "").Trim();
+            string level = (a.EducationLevel ?? "").Trim().ToUpper();
+            string fellow = (a.FultonFellow ?? "").Trim();
+            string session = (a.ClassSession ?? "").Trim().ToUpper();
+
+            // --- Grader ---
+            if (position == "Grader" && (level == "MS" || level == "PHD") && fellow == "No")
             {
-                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 2200;
-                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 2800;
-                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 6636;
-                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 7250;
-                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 8500;
-                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 8950;
-                if (h == 20 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 13272;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 14500;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 13272;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 13461.24;
-                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 2500;
-                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 3200;
-                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 6836;
-                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 7550;
-                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 9000;
-                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 9550;
+                if (h == 5)
+                {
+                    if (session == "A" || session == "B") return 781;
+                    if (session == "C") return 1562;
+                }
+                if (h == 10)
+                {
+                    if (session == "A" || session == "B") return 1562;
+                    if (session == "C") return 3124;
+                }
+                if (h == 15)
+                {
+                    if (session == "A" || session == "B") return 2343;
+                    if (session == "C") return 4686;
+                }
+                if (h == 20)
+                {
+                    if (session == "A" || session == "B") return 3124;
+                    if (session == "C") return 6248;
+                }
             }
 
-            if (a.Position == "TA (GSA) 1 credit")
+            // --- TA (GSA) 1 credit ---
+            if (position == "TA (GSA) 1 credit" && level == "PHD" && fellow == "No")
             {
-                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 7552.5;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 16825;
+                if (h == 10 && (session == "A" || session == "B" || session == "C")) return 7552.5;
+                if (h == 20 && (session == "A" || session == "B" || session == "C")) return 16825;
             }
 
-            if (a.Position == "Grader")
+            // --- TA ---
+            if (position == "TA")
             {
-                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 2200;
-                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 2800;
-                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 6636;
-                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 7250;
-                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 8500;
-                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 8950;
-                if (h == 20 && a.EducationLevel == "MS" && a.FultonFellow == "No") return 13272;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 14500;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "No") return 13272;
-                if (h == 20 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 13461.24;
-                if (h == 5 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 2500;
-                if (h == 5 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 3200;
-                if (h == 10 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 6836;
-                if (h == 10 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 7550;
-                if (h == 15 && a.EducationLevel == "MS" && a.FultonFellow == "Yes") return 9000;
-                if (h == 15 && a.EducationLevel == "PHD" && a.FultonFellow == "Yes") return 9550;
+                if (h == 20 && level == "PHD" && fellow == "Yes" && (session == "A" || session == "B" || session == "C")) return 13461.15;
+                if (h == 10 && level == "MS" && fellow == "No" && (session == "A" || session == "B" || session == "C")) return 6636;
+                if (h == 10 && level == "PHD" && fellow == "No" && (session == "A" || session == "B" || session == "C")) return 7250;
+                if (h == 20 && level == "MS" && fellow == "No" && (session == "A" || session == "B" || session == "C")) return 13272;
+                if (h == 20 && level == "PHD" && fellow == "No" && (session == "A" || session == "B" || session == "C")) return 14500;
             }
 
-            if (a.Position == "IA")
+            // --- IA ---
+            if (position == "IA" && (level == "MS" || level == "PHD") && fellow == "No")
             {
-                var baseFactor = a.ClassSession == "C" ? 2 : 1;
-                if (a.EducationLevel == "MS" || a.EducationLevel == "PHD")
-                    return baseFactor * 1100 * (h / 5);
+                if (h == 5)
+                {
+                    if (session == "A" || session == "B") return 1100;
+                    if (session == "C") return 2200;
+                }
+                if (h == 10)
+                {
+                    if (session == "A" || session == "B") return 2200;
+                    if (session == "C") return 4400;
+                }
+                if (h == 15)
+                {
+                    if (session == "A" || session == "B") return 2640;
+                    if (session == "C") return 6600;
+                }
+                if (h == 20)
+                {
+                    if (session == "A" || session == "B") return 4400;
+                    if (session == "C") return 8800;
+                }
             }
 
             return 0;
