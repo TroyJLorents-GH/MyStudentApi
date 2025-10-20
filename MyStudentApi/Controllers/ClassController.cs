@@ -130,6 +130,8 @@ namespace MyStudentApi.Controllers
                     return NotFound();
                 return new
                 {
+                    classInfo.Subject,
+                    classInfo.CatalogNum,
                     classInfo.Session,
                     classInfo.Term,
                     classInfo.InstructorID,
@@ -148,6 +150,8 @@ namespace MyStudentApi.Controllers
                     return NotFound();
                 return new
                 {
+                    classInfo.Subject,
+                    classInfo.CatalogNum,
                     classInfo.Session,
                     classInfo.Term,
                     classInfo.InstructorID,

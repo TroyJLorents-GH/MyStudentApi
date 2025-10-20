@@ -1,6 +1,8 @@
 # Build outputs
 bin/
 obj/
+publish/
+**/publish/
 
 # Ignore Visual Studio temporary folders
 .vs/
