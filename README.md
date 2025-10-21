@@ -2,10 +2,6 @@
 
 ![Azure](https://img.shields.io/badge/hosted%20on-Azure_App_Service-blue)
 
-## Live API (Swagger UI)
-
-[https://api.troystaticsite.com/swagger/index.html](https://studenthiringsystem-ccf5djgdg9dpb6ek.westus-01.azurewebsites.net/swagger/index.html)
-
 - Live Site: https://www.troystaticsite.com/
 ---
 
